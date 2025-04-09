@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaskController {
     @GetMapping("/task")
     public String listAll(){
-        return "Retornar tosas as tasks";
+        return "Retornar todas as tasks";
     }
 }
