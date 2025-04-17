@@ -30,4 +30,29 @@ public class TaskService {
         }
         return null;
     }
+
+    public Task updateTask(Long id, Task updatedTask){
+        Task existingTask = taskRepository.findById(id).orElse(null);
+
+        if (existingTask == null){
+            throw new RuntimeException("Tarefa não encontrada.");
+        }
+
+        existingTask.setCompleted(updatedTask.getCompleted());
+        existingTask.setDescription(updatedTask.getDescription());
+        existingTask.setType(updatedTask.getType());
+        existingTask.setDataEntrega(updatedTask.getDataEntrega());
+        existingTask.setPrazoDias(updatedTask.getPrazoDias());
+
+        return taskRepository.save(existingTask);
+    }
+
+    public void deleteTask(Long id){
+        Task task = taskRepository.findById(id).orElse(null);
+
+        if (task == null){
+            throw  new RuntimeException("Tarefa não encontrada.");
+        }
+        taskRepository.delete(task);
+    }
 }

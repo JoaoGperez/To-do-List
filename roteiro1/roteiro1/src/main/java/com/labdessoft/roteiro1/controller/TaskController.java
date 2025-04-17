@@ -56,6 +56,28 @@ public class TaskController {
        } else {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
        }
-
     }
+
+    @PutMapping("/task/{id}")
+    @Operation(summary = "Edita uma tarefa da lista.")
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask){
+        try {
+            Task finalUpdatedTask = taskService.updateTask(id, updatedTask);
+            return ResponseEntity.ok(finalUpdatedTask);
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("/task/{id}")
+    @Operation(summary = "Deleta uma tarefa da lista.")
+    public ResponseEntity<Task> deleteTask(@PathVariable Long id){
+        try {
+            taskService.deleteTask(id);
+            return ResponseEntity.noContent().build();
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }
